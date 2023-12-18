@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "undefined/subscriptions/0c2535f0-983d-44c0-9826-b6d5ef611a4a/resourceGroups/AppService-backend-powerbi-embed/providers/Microsoft.Web/sites/react-nodejs-embed-powerbi-runtime",
+    "appService.deploySubpath": "."
+}

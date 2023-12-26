@@ -1,19 +1,21 @@
 const getOnGoingProjectController = (db) => async (req, res) => {
 	try {
-		// const result = await db.getUsers();
-        console.log("ongoing called")
-        console.log(req)
-		return res.send("success");
+        const data =await db.getOngoingProject();
+        res.status(200).json(data);
 	} catch (e) {
 		return 'error';
 	}
 };
 const postOnGoingProjectController = (db) => async (req, res) => {
 	try {
-		// const result = await db.getUsers();
-        console.log("ongoing called")
-        console.log(req)
-		return res.send("success");
+		const data = {
+            title:req.body.title,
+            image:req.file.path,
+            description:req.body.description,
+            status:req.body.status,
+        }
+        const result = await db.insertOngoingProject(data);
+        res.status(200).json(result);
 	} catch (e) {
 		return 'error';
 	}
@@ -21,10 +23,18 @@ const postOnGoingProjectController = (db) => async (req, res) => {
 
 const updateOnGoingProjectController = (db) => async (req, res) => {
 	try {
-		const result = await db.getUsers();
-		return res.send(result);
-	} catch (e) {
-		return 'error';
+		const data = {
+            title:req.body.title,
+            image:req.body.image || req.file?.path,
+            description:req.body.description,
+            status:req.body.status,
+			id:req.params.id
+        }
+        const result = await db.updateOngoingProject(data);
+		res.status(200).json(result);
+	} catch (error) {
+	  console.error(error);
+	  res.status(500).json({ error: 'Internal Server Error' });
 	}
 };
 

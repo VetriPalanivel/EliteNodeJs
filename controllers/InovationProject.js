@@ -1,15 +1,21 @@
 const getInovationProjectController = (db) => async (req, res) => {
 	try {
-		const result = await db.getUsers();
-		return res.send(result);
+        const data =await db.getInovationProjects();
+        res.status(200).json(data);
 	} catch (e) {
 		return 'error';
 	}
 };
 const postInovationProjectController = (db) => async (req, res) => {
 	try {
-		const result = await db.getUsers();
-		return res.send(result);
+		const data = {
+            title:req.body.title,
+            image:req.file.path,
+            description:req.body.description,
+            status:req.body.status,
+        }
+        const result = await db.insertInovationProjects(data);
+        res.status(200).json(result);
 	} catch (e) {
 		return 'error';
 	}
@@ -17,8 +23,15 @@ const postInovationProjectController = (db) => async (req, res) => {
 
 const updateInovationProjectController = (db) => async (req, res) => {
 	try {
-		const result = await db.getUsers();
-		return res.send(result);
+		const data = {
+            title:req.body.title,
+            image:req.file.path,
+            description:req.body.description,
+            status:req.body.status,
+			id:req.params.id
+        }
+        const result = await db.updateInovationProjects(data);
+        res.status(200).json(result);
 	} catch (e) {
 		return 'error';
 	}

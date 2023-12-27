@@ -24,8 +24,16 @@ const postSponsorsController = (db) => async (req, res) => {
 
 const updateSponsorsController = (db) => async (req, res) => {
 	try {
-		const result = await db.getUsers();
-		return res.send(result);
+		const data = {
+            name:req.body.name,
+            image:req.body.image || req.file?.path,
+            description:req.body.description,
+            type:req.body.type,
+			country:req.body.country,
+			id:req.params.id
+        }
+        const result = await db.updateSponsors(data);
+        res.status(200).json(result);
 	} catch (e) {
 		return 'error';
 	}

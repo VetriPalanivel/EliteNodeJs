@@ -10,10 +10,10 @@ const postAmbassadorController = (db) => async (req, res) => {
 	try {
 		const data = {
             name:req.body.name,
-            image:req.files[0].path,
+            image:req.file.path,
             description:req.body.description,
 			country:req.body.country,
-			flag:req.files[1].path
+			flag:req.body.flag,
         }
         const result = await db.insertAmbassador(data);
         res.status(200).json(result);
@@ -24,8 +24,16 @@ const postAmbassadorController = (db) => async (req, res) => {
 
 const updateAmbassadorController = (db) => async (req, res) => {
 	try {
-		const result = await db.getUsers();
-		return res.send(result);
+		const data = {
+            name:req.body.name,
+			image:req.body.image|| req.file?.path,
+            description:req.body.description,
+			country:req.body.country,
+			flag:req.body.flag,
+			id:req.params.id
+        }
+        const result = await db.updateAmbassador(data);
+        res.status(200).json(result);
 	} catch (e) {
 		return 'error';
 	}

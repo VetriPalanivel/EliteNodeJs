@@ -26,8 +26,18 @@ const postRolesController = (db) => async (req, res) => {
 
 const updateRolesController = (db) => async (req, res) => {
 	try {
-		const result = await db.getUsers();
-		return res.send(result);
+		const data = {
+            title:req.body.title,
+			image:req.body.image || req.file?.path,
+            description:req.body.description,
+            type:req.body.type,
+            location:req.body.location,
+            benefit:req.body.benefit,
+            responsibility:req.body.responsibility,
+			id:req.params.id
+        }
+        const result = await db.updateRoles(data);
+        res.status(200).json(result);
 	} catch (e) {
 		return 'error';
 	}

@@ -27,23 +27,8 @@ class DBService {
   }
 
   getCurrentTime(){
-	const currentDate = new Date();
-	const originalDate = currentDate
-	  .toLocaleString("en-IN", {
-		year: "numeric",
-		month: "2-digit",
-		day: "2-digit",
-		hour: "2-digit",
-		minute: "2-digit",
-		timeZone: "Asia/Kolkata",
-	  })
-	  .replace(/\//g, "-")
-	  .split(", ")[0];
-
-	const time = moment(originalDate, "D-M-YYYY HH:mm").format(
-	  "YYYY-M-D HH:mm"
-	);
-	return time;
+	const timeInMalaysia = moment().tz("Asia/Kuala_Lumpur").format("YYYY-M-D HH:mm");
+    return timeInMalaysia;
   }
 
   async insertOngoingProject(data) {
@@ -76,7 +61,7 @@ class DBService {
 	 const time= this.getCurrentTime();
 	 const response = await new Promise((resolve, reject) => {
 		const query =
-		  "UPDATE elite.ongoing_project SET title = ?, image = ?, description = ?, status = ?, created_at = ? WHERE id = ?";
+		  "UPDATE elite.ongoing_project SET title = ?, image = ?, description = ?, status = ?, updated_at = ? WHERE id = ?";
 		const values = [
 		  data.title,
 		  data.image,
@@ -101,7 +86,7 @@ class DBService {
   async getOngoingProject() {
     try {
        const response = await new Promise((resolve, reject) => {
-		const query = "SELECT * FROM elite.ongoing_project";
+		const query = "SELECT * FROM elite.ongoing_project ORDER BY CASE WHEN updated_at IS NOT NULL THEN updated_at ELSE created_at END DESC;";
 		connection.query(query, (err, results) => {
 		  if (err) reject(new Error(err.message));
 		  resolve(results);
@@ -152,7 +137,7 @@ class DBService {
 	  const time =this.getCurrentTime();
 	  const response = await new Promise((resolve, reject) => {
 		const query =
-		  "UPDATE elite.research_assistantjob SET title = ?, image = ?, description = ?, requirement = ?, benefit = ?, duration = ?, deadline = ?, created_at = ? WHERE id = ?";
+		  "UPDATE elite.research_assistantjob SET title = ?, image = ?, description = ?, requirement = ?, benefit = ?, duration = ?, deadline = ?, updated_at = ? WHERE id = ?";
 		const values = [
 		  data.title,
 		  data.image,
@@ -182,7 +167,7 @@ class DBService {
   async getResearchAssistantJobs() {
     try {
         const response = await new Promise((resolve, reject) => {
-		const query = "SELECT * FROM elite.research_assistantjob";
+		const query = "SELECT * FROM elite.research_assistantjob ORDER BY CASE WHEN updated_at IS NOT NULL THEN updated_at ELSE created_at END DESC;";
 		connection.query(query, (err, results) => {
 		  if (err) reject(new Error(err.message));
 		  resolve(results);
@@ -228,7 +213,7 @@ class DBService {
 	  const time =this.getCurrentTime();	
 	  const response = await new Promise((resolve, reject) => {
 		const query =
-		  "UPDATE elite.inovation_project SET title = ?, image = ?, description = ?, status = ?, created_at = ? WHERE id = ?";
+		  "UPDATE elite.inovation_project SET title = ?, image = ?, description = ?, status = ?, updated_at = ? WHERE id = ?";
 		const values = [
 		  data.title,
 		  data.image,
@@ -253,7 +238,7 @@ class DBService {
   async getInovationProjects() {
     try {
         const response = await new Promise((resolve, reject) => {
-		const query = "SELECT * FROM elite.inovation_project";
+		const query = "SELECT * FROM elite.inovation_project ORDER BY CASE WHEN updated_at IS NOT NULL THEN updated_at ELSE created_at END DESC;";
 		connection.query(query, (err, results) => {
 		  if (err) reject(new Error(err.message));
 		  resolve(results);
@@ -297,11 +282,44 @@ class DBService {
     }
   }
 
+  async updateTraining(data) {
+    try {
+
+	  const time =this.getCurrentTime();	
+      const response = await new Promise((resolve, reject) => {
+		const query =
+		  "UPDATE elite.training SET title = ?, image = ?, description = ?, mode = ?, objective = ?, venue = ?, fee = ?, link = ?, updated_at = ? WHERE id = ?";
+		const values = [
+		  data.title,
+		  data.image,
+		  data.description,
+		  data.mode,
+		  data.objective,
+		  data.venue,
+		  data.fee,
+		  data.link,
+		  time,
+		  data.id, // Assuming you have the ID of the record you want to update
+		];
+	  
+		connection.query(query, values, (err, results) => {
+		  if (err) reject(new Error(err.message));
+		  resolve(results);
+		});
+	  });
+	  
+	  return response;
+	  
+    } catch (err) {
+       return "error";
+    }
+  }
+
 
   async getTraining() {
     try {
         const response = await new Promise((resolve, reject) => {
-		const query = "SELECT * FROM elite.training";
+		const query = "SELECT * FROM elite.training ORDER BY CASE WHEN updated_at IS NOT NULL THEN updated_at ELSE created_at END DESC;";
 		connection.query(query, (err, results) => {
 		  if (err) reject(new Error(err.message));
 		  resolve(results);
@@ -345,11 +363,44 @@ class DBService {
     }
   }
 
+  async updateWorkshop(data) {
+    try {
+
+	  const time =this.getCurrentTime();	
+      const response = await new Promise((resolve, reject) => {
+		const query =
+		  "UPDATE elite.workshop SET title = ?, image = ?, description = ?, mode = ?, objective = ?, venue = ?, fee = ?, link = ?, updated_at = ? WHERE id = ?";
+		const values = [
+		  data.title,
+		  data.image,
+		  data.description,
+		  data.mode,
+		  data.objective,
+		  data.venue,
+		  data.fee,
+		  data.link,
+		  time,
+		  data.id, // Assuming you have the ID of the record you want to update
+		];
+	  
+		connection.query(query, values, (err, results) => {
+		  if (err) reject(new Error(err.message));
+		  resolve(results);
+		});
+	  });
+	  
+	  return response;
+	  
+    } catch (err) {
+       return "error";
+    }
+  }
+
 
   async getWorkshop() {
     try {
         const response = await new Promise((resolve, reject) => {
-		const query = "SELECT * FROM elite.workshop";
+		const query = "SELECT * FROM elite.workshop ORDER BY CASE WHEN updated_at IS NOT NULL THEN updated_at ELSE created_at END DESC;";
 		connection.query(query, (err, results) => {
 		  if (err) reject(new Error(err.message));
 		  resolve(results);
@@ -393,11 +444,44 @@ class DBService {
     }
   }
 
+  async updateCompetetion(data) {
+    try {
+
+	  const time =this.getCurrentTime();	
+      const response = await new Promise((resolve, reject) => {
+		const query =
+		  "UPDATE elite.competetion SET title = ?, image = ?, description = ?, mode = ?, objective = ?, venue = ?, fee = ?, link = ?, updated_at = ? WHERE id = ?";
+		const values = [
+		  data.title,
+		  data.image,
+		  data.description,
+		  data.mode,
+		  data.objective,
+		  data.venue,
+		  data.fee,
+		  data.link,
+		  time,
+		  data.id, // Assuming you have the ID of the record you want to update
+		];
+	  
+		connection.query(query, values, (err, results) => {
+		  if (err) reject(new Error(err.message));
+		  resolve(results);
+		});
+	  });
+	  
+	  return response;
+	  
+    } catch (err) {
+       return "error";
+    }
+  }
+
 
   async getCompetetion() {
     try {
         const response = await new Promise((resolve, reject) => {
-		const query = "SELECT * FROM elite.competetion";
+		const query = "SELECT * FROM elite.competetion ORDER BY CASE WHEN updated_at IS NOT NULL THEN updated_at ELSE created_at END DESC;";
 		connection.query(query, (err, results) => {
 		  if (err) reject(new Error(err.message));
 		  resolve(results);
@@ -441,11 +525,44 @@ class DBService {
     }
   }
 
+  async updateExhibition(data) {
+    try {
+
+	  const time =this.getCurrentTime();	
+      const response = await new Promise((resolve, reject) => {
+		const query =
+		  "UPDATE elite.exhibition SET title = ?, image = ?, description = ?, mode = ?, objective = ?, venue = ?, fee = ?, link = ?, updated_at = ? WHERE id = ?";
+		const values = [
+		  data.title,
+		  data.image,
+		  data.description,
+		  data.mode,
+		  data.objective,
+		  data.venue,
+		  data.fee,
+		  data.link,
+		  time,
+		  data.id, // Assuming you have the ID of the record you want to update
+		];
+	  
+		connection.query(query, values, (err, results) => {
+		  if (err) reject(new Error(err.message));
+		  resolve(results);
+		});
+	  });
+	  
+	  return response;
+	  
+    } catch (err) {
+       return "error";
+    }
+  }
+
 
   async getExhibition() {
     try {
         const response = await new Promise((resolve, reject) => {
-		const query = "SELECT * FROM elite.exhibition";
+		const query = "SELECT * FROM elite.exhibition ORDER BY CASE WHEN updated_at IS NOT NULL THEN updated_at ELSE created_at END DESC;";
 		connection.query(query, (err, results) => {
 		  if (err) reject(new Error(err.message));
 		  resolve(results);
@@ -485,11 +602,40 @@ class DBService {
     }
   }
 
+  async updateClubs(data) {
+    try {
+
+	  const time =this.getCurrentTime();	
+      const response = await new Promise((resolve, reject) => {
+		const query =
+		  "UPDATE elite.clubs_societies SET title = ?, image = ?, description = ?, link = ?, updated_at = ? WHERE id = ?";
+		const values = [
+		  data.title,
+		  data.image,
+		  data.description,
+		  data.link,
+		  time,
+		  data.id, // Assuming you have the ID of the record you want to update
+		];
+	  
+		connection.query(query, values, (err, results) => {
+		  if (err) reject(new Error(err.message));
+		  resolve(results);
+		});
+	  });
+	  
+	  return response;
+	  
+    } catch (err) {
+       return "error";
+    }
+  }
+
 
   async getClubs() {
     try {
         const response = await new Promise((resolve, reject) => {
-		const query = "SELECT * FROM elite.clubs_societies";
+		const query = "SELECT * FROM elite.clubs_societies ORDER BY CASE WHEN updated_at IS NOT NULL THEN updated_at ELSE created_at END DESC;";
 		connection.query(query, (err, results) => {
 		  if (err) reject(new Error(err.message));
 		  resolve(results);
@@ -535,11 +681,47 @@ class DBService {
     }
   }
 
+  async updateCourses(data) {
+    try {
+
+	  const time =this.getCurrentTime();	
+	  const response = await new Promise((resolve, reject) => {
+		const query =
+		  "UPDATE elite.course SET title = ?, image = ?, domain = ?, description = ?, mode = ?, duration = ?, objective = ?, benefit = ?, structure = ?, link = ?, updated_at = ? WHERE id = ?";
+		const values = [
+		  data.title,
+		  data.image,
+		  data.domain,
+		  data.description,
+		  data.mode,
+		  data.duration,
+		  data.objective,
+		  data.benefit,
+		  data.structure,
+		  data.link,
+		  time,
+		  data.id, // Assuming you have the ID of the record you want to update
+		];
+	  
+		connection.query(query, values, (err, results) => {
+		  if (err) reject(new Error(err.message));
+		  resolve(results);
+		});
+	  });
+	  
+	  return response;
+	  
+    } catch (err) {
+       return "error";
+    }
+  }
+
+
 
   async getCourses() {
     try {
         const response = await new Promise((resolve, reject) => {
-		const query = "SELECT * FROM elite.course";
+		const query = "SELECT * FROM elite.course ORDER BY CASE WHEN updated_at IS NOT NULL THEN updated_at ELSE created_at END DESC;";
 		connection.query(query, (err, results) => {
 		  if (err) reject(new Error(err.message));
 		  resolve(results);
@@ -582,11 +764,43 @@ class DBService {
     }
   }
 
+  async updateRoles(data) {
+    try {
+
+	  const time =this.getCurrentTime();	
+	  const response = await new Promise((resolve, reject) => {
+		const query =
+		  "UPDATE elite.roles SET title = ?, image = ?, description = ?, type = ?, location = ?, benefit = ?, responsibility = ?, updated_at = ? WHERE id = ?";
+		const values = [
+		  data.title,
+		  data.image,
+		  data.description,
+		  data.type,
+		  data.location,
+		  data.benefit,
+		  data.responsibility,
+		  time,
+		  data.id, // Assuming you have the ID of the record you want to update
+		];
+	  
+		connection.query(query, values, (err, results) => {
+		  if (err) reject(new Error(err.message));
+		  resolve(results);
+		});
+	  });
+	  
+	  return response;
+	  
+    } catch (err) {
+       return "error";
+    }
+  }
+
 
   async getRoles() {
     try {
         const response = await new Promise((resolve, reject) => {
-		const query = "SELECT * FROM elite.roles";
+		const query = "SELECT * FROM elite.roles ORDER BY CASE WHEN updated_at IS NOT NULL THEN updated_at ELSE created_at END DESC;";
 		connection.query(query, (err, results) => {
 		  if (err) reject(new Error(err.message));
 		  resolve(results);
@@ -626,11 +840,40 @@ class DBService {
     }
   }
 
+  async updateNews(data) {
+    try {
+
+	  const time =this.getCurrentTime();	
+	  const response = await new Promise((resolve, reject) => {
+		const query =
+		  "UPDATE elite.news SET title = ?, image = ?, description = ?, date = ?, updated_at = ? WHERE id = ?";
+		const values = [
+		  data.title,
+		  data.image,
+		  data.description,
+		  data.date,
+		  time,
+		  data.id, // Assuming you have the ID of the record you want to update
+		];
+	  
+		connection.query(query, values, (err, results) => {
+		  if (err) reject(new Error(err.message));
+		  resolve(results);
+		});
+	  });
+	  
+	  return response;
+	  
+    } catch (err) {
+       return "error";
+    }
+  }
+
 
   async getNews() {
     try {
         const response = await new Promise((resolve, reject) => {
-		const query = "SELECT * FROM elite.news";
+		const query = "SELECT * FROM elite.news ORDER BY CASE WHEN updated_at IS NOT NULL THEN updated_at ELSE created_at END DESC;";
 		connection.query(query, (err, results) => {
 		  if (err) reject(new Error(err.message));
 		  resolve(results);
@@ -670,11 +913,40 @@ class DBService {
     }
   }
 
+  async updateCommitte(data) {
+    try {
+
+	  const time =this.getCurrentTime();	
+      const response = await new Promise((resolve, reject) => {
+		const query =
+		  "UPDATE elite.committe SET name = ?, image = ?, organization = ?, role = ?, updated_at = ? WHERE id = ?";
+		const values = [
+		  data.name,
+		  data.image,
+		  data.organization,
+		  data.role,
+		  time,
+		  data.id, // Assuming you have the ID of the record you want to update
+		];
+	  
+		connection.query(query, values, (err, results) => {
+		  if (err) reject(new Error(err.message));
+		  resolve(results);
+		});
+	  });
+	  
+	  return response;
+	  
+    } catch (err) {
+       return "error";
+    }
+  }
+
 
   async getCommitte() {
     try {
         const response = await new Promise((resolve, reject) => {
-		const query = "SELECT * FROM elite.committe";
+		const query = "SELECT * FROM elite.committe ORDER BY CASE WHEN updated_at IS NOT NULL THEN updated_at ELSE created_at END DESC;";
 		connection.query(query, (err, results) => {
 		  if (err) reject(new Error(err.message));
 		  resolve(results);
@@ -714,11 +986,40 @@ class DBService {
     }
   }
 
+  async updateTeamMember(data) {
+    try {
+
+	  const time =this.getCurrentTime();	
+	  const response = await new Promise((resolve, reject) => {
+		const query =
+		  "UPDATE elite.team_member SET name = ?, image = ?, description = ?, role = ?, updated_at = ? WHERE id = ?";
+		const values = [
+		  data.name,
+		  data.image,
+		  data.description,
+		  data.role,
+		  time,
+		  data.id, // Assuming you have the ID of the record you want to update
+		];
+	  
+		connection.query(query, values, (err, results) => {
+		  if (err) reject(new Error(err.message));
+		  resolve(results);
+		});
+	  });
+	  
+	  return response;
+	  
+    } catch (err) {
+       return "error";
+    }
+  }
+
 
   async getTeamMember() {
     try {
         const response = await new Promise((resolve, reject) => {
-		const query = "SELECT * FROM elite.team_member";
+		const query = "SELECT * FROM elite.team_member ORDER BY CASE WHEN updated_at IS NOT NULL THEN updated_at ELSE created_at END DESC;";
 		connection.query(query, (err, results) => {
 		  if (err) reject(new Error(err.message));
 		  resolve(results);
@@ -759,11 +1060,40 @@ class DBService {
     }
   }
 
+  async updateSponsors(data) {
+    try {
+
+	  const time =this.getCurrentTime();	
+      const response = await new Promise((resolve, reject) => {
+		const query =
+		  "UPDATE elite.sponsors SET name = ?, image = ?, description = ?, type = ?, country = ?, updated_at = ? WHERE id = ?";
+		const values = [
+		  data.name,
+		  data.image,
+		  data.description,
+		  data.type,
+		  data.country,
+		  time,
+		  data.id, // Assuming you have the ID of the record you want to update
+		];
+	  
+		connection.query(query, values, (err, results) => {
+		  if (err) reject(new Error(err.message));
+		  resolve(results);
+		});
+	  });
+	  
+	  return response;
+	  
+    } catch (err) {
+       return "error";
+    }
+  }
 
   async getSponsors() {
     try {
         const response = await new Promise((resolve, reject) => {
-		const query = "SELECT * FROM elite.sponsors";
+		const query = "SELECT * FROM elite.sponsors ORDER BY CASE WHEN updated_at IS NOT NULL THEN updated_at ELSE created_at END DESC;";
 		connection.query(query, (err, results) => {
 		  if (err) reject(new Error(err.message));
 		  resolve(results);
@@ -789,7 +1119,7 @@ class DBService {
 		data.image,
 		data.description,
 		data.country,
-        data.flag,
+		data.flag,
 		time,
 	  ];
         connection.query(query, values, (err, results) => {
@@ -804,11 +1134,41 @@ class DBService {
     }
   }
 
+  async updateAmbassador(data) {
+    try {
+
+	  const time =this.getCurrentTime();	
+      const response = await new Promise((resolve, reject) => {
+		const query =
+		  "UPDATE elite.ambassador SET name = ?, image = ?, description = ?, country = ?, flag = ?, updated_at = ? WHERE id = ?";
+		const values = [
+		  data.name,
+		  data.image,
+		  data.description,
+		  data.country,
+		  data.flag,
+		  time,
+		  data.id, // Assuming you have the ID of the record you want to update
+		];
+	  
+		connection.query(query, values, (err, results) => {
+		  if (err) reject(new Error(err.message));
+		  resolve(results);
+		});
+	  });
+	  
+	  return response;
+	  
+    } catch (err) {
+       return "error";
+    }
+  }
+
 
   async getAmbassador() {
     try {
         const response = await new Promise((resolve, reject) => {
-		const query = "SELECT * FROM elite.ambassador";
+		const query = "SELECT * FROM elite.ambassador ORDER BY CASE WHEN updated_at IS NOT NULL THEN updated_at ELSE created_at END DESC;";
 		connection.query(query, (err, results) => {
 		  if (err) reject(new Error(err.message));
 		  resolve(results);

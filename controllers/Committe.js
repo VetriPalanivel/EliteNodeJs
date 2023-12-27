@@ -23,8 +23,15 @@ const postCommitteController = (db) => async (req, res) => {
 
 const updateCommitteController = (db) => async (req, res) => {
 	try {
-		const result = await db.getUsers();
-		return res.send(result);
+		const data = {
+            name:req.body.name,
+            image:req.body.image || req.file?.path,
+            organization:req.body.organization,
+            role:req.body.role,
+			id:req.params.id
+        }
+        const result = await db.updateCommitte(data);
+        res.status(200).json(result);
 	} catch (e) {
 		return 'error';
 	}

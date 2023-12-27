@@ -27,8 +27,19 @@ const postExhibitionController = (db) => async (req, res) => {
 
 const updateExhibitionController = (db) => async (req, res) => {
 	try {
-		const result = await db.getUsers();
-		return res.send(result);
+		const data = {
+            title:req.body.title,
+            image:req.body.image || req.file?.path,
+            description:req.body.description,
+            mode:req.body.mode,
+            objective:req.body.objective,
+            venue:req.body.venue,
+            fee:req.body.fee,
+			link:req.body.link,
+			id:req.params.id
+        }
+        const result = await db.updateExhibition(data);
+        res.status(200).json(result);
 	} catch (e) {
 		return 'error';
 	}

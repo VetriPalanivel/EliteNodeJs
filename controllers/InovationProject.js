@@ -25,7 +25,7 @@ const updateInovationProjectController = (db) => async (req, res) => {
 	try {
 		const data = {
             title:req.body.title,
-            image:req.file.path,
+			image:req.body.image || req.file?.path,
             description:req.body.description,
             status:req.body.status,
 			id:req.params.id

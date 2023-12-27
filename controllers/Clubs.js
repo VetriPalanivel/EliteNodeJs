@@ -23,8 +23,15 @@ const postClubsController = (db) => async (req, res) => {
 
 const updateClubsController = (db) => async (req, res) => {
 	try {
-		const result = await db.getUsers();
-		return res.send(result);
+		const data = {
+            title:req.body.title,
+			image:req.body.image || req.file?.path,
+            description:req.body.description,
+			link:req.body.link,
+			id:req.params.id
+        }
+        const result = await db.updateClubs(data);
+        res.status(200).json(result);
 	} catch (e) {
 		return 'error';
 	}

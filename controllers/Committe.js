@@ -37,4 +37,16 @@ const updateCommitteController = (db) => async (req, res) => {
 	}
 };
 
-module.exports = {getCommitteController,postCommitteController,updateCommitteController};
+const deleteCommitteController = (db) => async (req, res) => {
+	try {
+		const data = {
+			id:req.params.id
+        }
+        const result = await db.deleteCommitte(data);
+        res.status(200).json(result);
+	} catch (e) {
+		return 'error';
+	}
+};
+
+module.exports = {deleteCommitteController,getCommitteController,postCommitteController,updateCommitteController};

@@ -37,4 +37,17 @@ const updateClubsController = (db) => async (req, res) => {
 	}
 };
 
-module.exports = {getClubsController,postClubsController,updateClubsController};
+const deleteClubsController = (db) => async (req, res) => {
+	try {
+		const data = {
+			id:req.params.id
+        }
+        const result = await db.deleteClubs(data);
+        res.status(200).json(result);
+	} catch (e) {
+		return 'error';
+	}
+};
+
+
+module.exports = {deleteClubsController,getClubsController,postClubsController,updateClubsController};

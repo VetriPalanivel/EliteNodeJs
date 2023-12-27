@@ -36,5 +36,16 @@ const updateInovationProjectController = (db) => async (req, res) => {
 		return 'error';
 	}
 };
+const deleteInovationProjectController = (db) => async (req, res) => {
+	try {
+		const data = {
+			id:req.params.id
+        }
+        const result = await db.deleteInovationProjects(data);
+        res.status(200).json(result);
+	} catch (e) {
+		return 'error';
+	}
+};
 
-module.exports = {getInovationProjectController,postInovationProjectController,updateInovationProjectController};
+module.exports = {deleteInovationProjectController,getInovationProjectController,postInovationProjectController,updateInovationProjectController};

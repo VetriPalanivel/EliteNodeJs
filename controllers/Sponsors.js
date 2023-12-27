@@ -39,4 +39,16 @@ const updateSponsorsController = (db) => async (req, res) => {
 	}
 };
 
-module.exports = {getSponsorsController,postSponsorsController,updateSponsorsController};
+const deleteSponsorsController = (db) => async (req, res) => {
+	try {
+		const data = {
+			id:req.params.id
+        }
+        const result = await db.deleteSponsors(data);
+        res.status(200).json(result);
+	} catch (e) {
+		return 'error';
+	}
+};
+
+module.exports = {deleteSponsorsController,getSponsorsController,postSponsorsController,updateSponsorsController};

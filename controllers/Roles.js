@@ -43,4 +43,16 @@ const updateRolesController = (db) => async (req, res) => {
 	}
 };
 
-module.exports = {getRolesController,postRolesController,updateRolesController};
+const deleteRolesController = (db) => async (req, res) => {
+	try {
+		const data = {
+			id:req.params.id
+        }
+        const result = await db.deleteRoles(data);
+        res.status(200).json(result);
+	} catch (e) {
+		return 'error';
+	}
+};
+
+module.exports = {deleteRolesController,getRolesController,postRolesController,updateRolesController};

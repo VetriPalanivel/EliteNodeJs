@@ -36,5 +36,16 @@ const updateTeamMemberController = (db) => async (req, res) => {
 		return 'error';
 	}
 };
+const deleteTeamMemberController = (db) => async (req, res) => {
+	try {
+		const data = {
+			id:req.params.id
+        }
+        const result = await db.deleteTeamMember(data);
+        res.status(200).json(result);
+	} catch (e) {
+		return 'error';
+	}
+};
 
-module.exports = {getTeamMemberController,postTeamMemberController,updateTeamMemberController};
+module.exports = {deleteTeamMemberController,getTeamMemberController,postTeamMemberController,updateTeamMemberController};

@@ -45,4 +45,16 @@ const updateExhibitionController = (db) => async (req, res) => {
 	}
 };
 
-module.exports = {getExhibitionController,postExhibitionController,updateExhibitionController};
+const deleteExhibitionController = (db) => async (req, res) => {
+	try {
+		const data = {
+			id:req.params.id
+        }
+        const result = await db.deleteExhibition(data);
+        res.status(200).json(result);
+	} catch (e) {
+		return 'error';
+	}
+};
+
+module.exports = {deleteExhibitionController,getExhibitionController,postExhibitionController,updateExhibitionController};

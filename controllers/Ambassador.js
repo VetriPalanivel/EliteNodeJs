@@ -39,4 +39,16 @@ const updateAmbassadorController = (db) => async (req, res) => {
 	}
 };
 
-module.exports = {getAmbassadorController,postAmbassadorController,updateAmbassadorController};
+const deleteAmbassadorController = (db) => async (req, res) => {
+	try {
+		const data = {
+			id:req.params.id
+        }
+        const result = await db.deleteAmbassador(data);
+        res.status(200).json(result);
+	} catch (e) {
+		return 'error';
+	}
+};
+
+module.exports = {deleteAmbassadorController,getAmbassadorController,postAmbassadorController,updateAmbassadorController};

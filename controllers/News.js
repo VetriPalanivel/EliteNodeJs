@@ -36,5 +36,16 @@ const updateNewsController = (db) => async (req, res) => {
 		return 'error';
 	}
 };
+const deleteNewsController = (db) => async (req, res) => {
+	try {
+		const data = {
+			id:req.params.id
+        }
+        const result = await db.deleteNews(data);
+        res.status(200).json(result);
+	} catch (e) {
+		return 'error';
+	}
+};
 
-module.exports = {getNewsController,postNewsController,updateNewsController};
+module.exports = {deleteNewsController,getNewsController,postNewsController,updateNewsController};

@@ -38,4 +38,17 @@ const updateOnGoingProjectController = (db) => async (req, res) => {
 	}
 };
 
-module.exports = {getOnGoingProjectController,postOnGoingProjectController,updateOnGoingProjectController};
+const deleteOnGoingProjectController = (db) => async (req, res) => {
+	try {
+		const data = {
+			id:req.params.id
+        }
+        const result = await db.deleteOngoingProject(data);
+		res.status(200).json(result);
+	} catch (error) {
+	  console.error(error);
+	  res.status(500).json({ error: 'Internal Server Error' });
+	}
+};
+
+module.exports = {getOnGoingProjectController,deleteOnGoingProjectController,postOnGoingProjectController,updateOnGoingProjectController};

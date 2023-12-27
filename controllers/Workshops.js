@@ -45,4 +45,16 @@ const updateWorkshopsController = (db) => async (req, res) => {
 	}
 };
 
-module.exports = {getWorkshopsController,postWorkshopsController,updateWorkshopsController};
+const deleteWorkshopsController = (db) => async (req, res) => {
+	try {
+		const data = {
+			id:req.params.id
+        }
+        const result = await db.deleteWorkshop(data);
+        res.status(200).json(result);
+	} catch (e) {
+		return 'error';
+	}
+};
+
+module.exports = {deleteWorkshopsController,getWorkshopsController,postWorkshopsController,updateWorkshopsController};

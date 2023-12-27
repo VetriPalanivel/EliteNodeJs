@@ -82,6 +82,26 @@ class DBService {
     }
   }
 
+  async deleteOngoingProject(data) {
+    try {
+	 const response = await new Promise((resolve, reject) => {
+		const query =
+		  "DELETE from elite.ongoing_project WHERE id = ?";
+		const values = [
+		  data.id, // Assuming you have the ID of the record you want to update
+		];
+	  
+		connection.query(query, values, (err, results) => {
+		  if (err) reject(new Error(err.message));
+		  resolve(results);
+		});
+	  });
+	  return response;
+    } catch (err) {
+       return "error";
+    }
+  }
+
 
   async getOngoingProject() {
     try {
@@ -147,6 +167,28 @@ class DBService {
 		  data.duration,
 		  data.deadline,
 		  time,
+		  data.id, // Assuming you have the ID of the record you want to update
+		];
+	  
+		connection.query(query, values, (err, results) => {
+		  if (err) reject(new Error(err.message));
+		  resolve(results);
+		});
+	  });
+	  
+	  return response;
+    } catch (err) {
+		console.log("assistant error")
+       return "error";
+    }
+  }
+
+  async deleteResearchAssistantJobs(data) {
+    try {
+	  const response = await new Promise((resolve, reject) => {
+		const query =
+		  "DELETE from elite.research_assistantjob WHERE id = ?";
+		const values = [
 		  data.id, // Assuming you have the ID of the record you want to update
 		];
 	  
@@ -234,6 +276,26 @@ class DBService {
     }
   }
 
+  async deleteInovationProjects(data) {
+    try {	
+	  const response = await new Promise((resolve, reject) => {
+		const query =
+		  "DELETE from elite.inovation_project WHERE id = ?";
+		const values = [
+		  data.id, // Assuming you have the ID of the record you want to update
+		];
+	  
+		connection.query(query, values, (err, results) => {
+		  if (err) reject(new Error(err.message));
+		  resolve(results);
+		});
+	  });
+	  return response;
+    } catch (err) {
+       return "error";
+    }
+  }
+
 
   async getInovationProjects() {
     try {
@@ -299,6 +361,28 @@ class DBService {
 		  data.fee,
 		  data.link,
 		  time,
+		  data.id, // Assuming you have the ID of the record you want to update
+		];
+	  
+		connection.query(query, values, (err, results) => {
+		  if (err) reject(new Error(err.message));
+		  resolve(results);
+		});
+	  });
+	  
+	  return response;
+	  
+    } catch (err) {
+       return "error";
+    }
+  }
+
+  async deleteTraining(data) {
+    try {
+      const response = await new Promise((resolve, reject) => {
+		const query =
+		  "DELETE from elite.training WHERE id = ?";
+		const values = [
 		  data.id, // Assuming you have the ID of the record you want to update
 		];
 	  
@@ -396,6 +480,28 @@ class DBService {
     }
   }
 
+  async deleteWorkshop(data) {
+    try {
+      const response = await new Promise((resolve, reject) => {
+		const query =
+		  "DELETE from elite.workshop WHERE id = ?";
+		const values = [
+		  data.id, // Assuming you have the ID of the record you want to update
+		];
+	  
+		connection.query(query, values, (err, results) => {
+		  if (err) reject(new Error(err.message));
+		  resolve(results);
+		});
+	  });
+	  
+	  return response;
+	  
+    } catch (err) {
+       return "error";
+    }
+  }
+
 
   async getWorkshop() {
     try {
@@ -461,6 +567,28 @@ class DBService {
 		  data.fee,
 		  data.link,
 		  time,
+		  data.id, // Assuming you have the ID of the record you want to update
+		];
+	  
+		connection.query(query, values, (err, results) => {
+		  if (err) reject(new Error(err.message));
+		  resolve(results);
+		});
+	  });
+	  
+	  return response;
+	  
+    } catch (err) {
+       return "error";
+    }
+  }
+
+  async deleteCompetetion(data) {
+    try {	
+      const response = await new Promise((resolve, reject) => {
+		const query =
+		  "DELETE from elite.competetion WHERE id = ?";
+		const values = [
 		  data.id, // Assuming you have the ID of the record you want to update
 		];
 	  
@@ -558,6 +686,28 @@ class DBService {
     }
   }
 
+  async deleteExhibition(data) {
+    try {	
+      const response = await new Promise((resolve, reject) => {
+		const query =
+		  "DELETE from elite.exhibition WHERE id = ?";
+		const values = [
+		  data.id, // Assuming you have the ID of the record you want to update
+		];
+	  
+		connection.query(query, values, (err, results) => {
+		  if (err) reject(new Error(err.message));
+		  resolve(results);
+		});
+	  });
+	  
+	  return response;
+	  
+    } catch (err) {
+       return "error";
+    }
+  }
+
 
   async getExhibition() {
     try {
@@ -615,6 +765,28 @@ class DBService {
 		  data.description,
 		  data.link,
 		  time,
+		  data.id, // Assuming you have the ID of the record you want to update
+		];
+	  
+		connection.query(query, values, (err, results) => {
+		  if (err) reject(new Error(err.message));
+		  resolve(results);
+		});
+	  });
+	  
+	  return response;
+	  
+    } catch (err) {
+       return "error";
+    }
+  }
+
+  async deleteClubs(data) {
+    try {
+      const response = await new Promise((resolve, reject) => {
+		const query =
+		  "DELETE from elite.clubs_societies WHERE id = ?";
+		const values = [
 		  data.id, // Assuming you have the ID of the record you want to update
 		];
 	  
@@ -716,6 +888,28 @@ class DBService {
     }
   }
 
+  async deleteCourses(data) {
+    try {	
+	  const response = await new Promise((resolve, reject) => {
+		const query =
+		  "DELETE from elite.course WHERE id = ?";
+		const values = [
+		  data.id, // Assuming you have the ID of the record you want to update
+		];
+	  
+		connection.query(query, values, (err, results) => {
+		  if (err) reject(new Error(err.message));
+		  resolve(results);
+		});
+	  });
+	  
+	  return response;
+	  
+    } catch (err) {
+       return "error";
+    }
+  }
+
 
 
   async getCourses() {
@@ -780,6 +974,28 @@ class DBService {
 		  data.benefit,
 		  data.responsibility,
 		  time,
+		  data.id, // Assuming you have the ID of the record you want to update
+		];
+	  
+		connection.query(query, values, (err, results) => {
+		  if (err) reject(new Error(err.message));
+		  resolve(results);
+		});
+	  });
+	  
+	  return response;
+	  
+    } catch (err) {
+       return "error";
+    }
+  }
+
+  async deleteRoles(data) {
+    try {	
+	  const response = await new Promise((resolve, reject) => {
+		const query =
+		  "DELETE from elite.roles WHERE id = ?";
+		const values = [
 		  data.id, // Assuming you have the ID of the record you want to update
 		];
 	  
@@ -869,6 +1085,28 @@ class DBService {
     }
   }
 
+  async deleteNews(data) {
+    try {	
+	  const response = await new Promise((resolve, reject) => {
+		const query =
+		  "DELETE from elite.news WHERE id = ?";
+		const values = [
+		  data.id, // Assuming you have the ID of the record you want to update
+		];
+	  
+		connection.query(query, values, (err, results) => {
+		  if (err) reject(new Error(err.message));
+		  resolve(results);
+		});
+	  });
+	  
+	  return response;
+	  
+    } catch (err) {
+       return "error";
+    }
+  }
+
 
   async getNews() {
     try {
@@ -942,6 +1180,29 @@ class DBService {
     }
   }
 
+  async deleteCommitte(data) {
+    try {	
+      const response = await new Promise((resolve, reject) => {
+		const query =
+		  "DELETE from elite.committe WHERE id = ?";
+		const values = [
+		  data.id, // Assuming you have the ID of the record you want to update
+		];
+	  
+		connection.query(query, values, (err, results) => {
+		  if (err) reject(new Error(err.message));
+		  resolve(results);
+		});
+	  });
+	  
+	  return response;
+	  
+    } catch (err) {
+       return "error";
+    }
+  }
+
+
 
   async getCommitte() {
     try {
@@ -999,6 +1260,28 @@ class DBService {
 		  data.description,
 		  data.role,
 		  time,
+		  data.id, // Assuming you have the ID of the record you want to update
+		];
+	  
+		connection.query(query, values, (err, results) => {
+		  if (err) reject(new Error(err.message));
+		  resolve(results);
+		});
+	  });
+	  
+	  return response;
+	  
+    } catch (err) {
+       return "error";
+    }
+  }
+
+  async deleteTeamMember(data) {
+    try {	
+	  const response = await new Promise((resolve, reject) => {
+		const query =
+		  "DELETE from elite.team_member WHERE id = ?";
+		const values = [
 		  data.id, // Assuming you have the ID of the record you want to update
 		];
 	  
@@ -1090,6 +1373,28 @@ class DBService {
     }
   }
 
+  async deleteSponsors(data) {
+    try {	
+      const response = await new Promise((resolve, reject) => {
+		const query =
+		  "DELETE from elite.sponsors WHERE id = ?";
+		const values = [
+		  data.id, // Assuming you have the ID of the record you want to update
+		];
+	  
+		connection.query(query, values, (err, results) => {
+		  if (err) reject(new Error(err.message));
+		  resolve(results);
+		});
+	  });
+	  
+	  return response;
+	  
+    } catch (err) {
+       return "error";
+    }
+  }
+
   async getSponsors() {
     try {
         const response = await new Promise((resolve, reject) => {
@@ -1148,6 +1453,28 @@ class DBService {
 		  data.country,
 		  data.flag,
 		  time,
+		  data.id, // Assuming you have the ID of the record you want to update
+		];
+	  
+		connection.query(query, values, (err, results) => {
+		  if (err) reject(new Error(err.message));
+		  resolve(results);
+		});
+	  });
+	  
+	  return response;
+	  
+    } catch (err) {
+       return "error";
+    }
+  }
+
+  async deleteAmbassador(data) {
+    try {
+      const response = await new Promise((resolve, reject) => {
+		const query =
+		  "DELETE from elite.ambassador WHERE id = ?";
+		const values = [
 		  data.id, // Assuming you have the ID of the record you want to update
 		];
 	  

@@ -49,4 +49,16 @@ const updateCourseController = (db) => async (req, res) => {
 	}
 };
 
-module.exports = {getCourseController,postCourseController,updateCourseController};
+const deleteCourseController = (db) => async (req, res) => {
+	try {
+		const data = {
+			id:req.params.id
+        }
+        const result = await db.deleteCourses(data);
+        res.status(200).json(result);
+	} catch (e) {
+		return 'error';
+	}
+};
+
+module.exports = {deleteCourseController,getCourseController,postCourseController,updateCourseController};

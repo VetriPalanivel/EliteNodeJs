@@ -45,4 +45,16 @@ const updateCompetetionController = (db) => async (req, res) => {
 	}
 };
 
-module.exports = {getCompetetionController,postCompetetionController,updateCompetetionController};
+const deleteCompetetionController = (db) => async (req, res) => {
+	try {
+		const data = {
+			id:req.params.id
+        }
+        const result = await db.deleteCompetetion(data);
+        res.status(200).json(result);
+	} catch (e) {
+		return 'error';
+	}
+};
+
+module.exports = {deleteCompetetionController,getCompetetionController,postCompetetionController,updateCompetetionController};

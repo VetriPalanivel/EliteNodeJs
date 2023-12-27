@@ -43,4 +43,16 @@ const updateResearchAssistantJobsController = (db) => async (req, res) => {
 	}
 };
 
-module.exports = {getResearchAssistantJobsController,postResearchAssistantJobsController,updateResearchAssistantJobsController};
+const deleteResearchAssistantJobsController = (db) => async (req, res) => {
+	try {
+		const data = {
+			id:req.params.id
+        }
+        const result = await db.deleteResearchAssistantJobs(data);
+        res.status(200).json(result);
+	} catch (e) {
+		return 'error';
+	}
+};
+
+module.exports = {deleteResearchAssistantJobsController,getResearchAssistantJobsController,postResearchAssistantJobsController,updateResearchAssistantJobsController};

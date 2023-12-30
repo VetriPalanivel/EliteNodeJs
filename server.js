@@ -19,6 +19,7 @@ const { getSponsorsController,updateSponsorsController,deleteSponsorsController,
 const { getTeamMemberController,updateTeamMemberController,deleteTeamMemberController,postTeamMemberController } = require('./controllers/TeamMember');
 const { getTrainingController,updateTrainingController,deleteTrainingController,postTrainingController } = require('./controllers/Training');
 const { getWorkshopsController ,updateWorkshopsController,deleteWorkshopsController,postWorkshopsController} = require('./controllers/Workshops');
+const { validateLogin, postUserData, updateUserData, getDashBoard } = require('./controllers/UserData');
 const db = new DBService();
 dotenv.config();
 app.use(
@@ -47,6 +48,13 @@ const storage = multer.diskStorage({
   
   const upload = multer({ storage: storage });
   app.use('/uploads',express.static('./uploads'))
+
+  //User Login
+ app.route('/admin/login/:email/:password').post(validateLogin(db));
+ app.route('/admin/register').post(postUserData(db));
+ app.route('/profile/update/:id').put(upload.single('image'),updateUserData(db));
+ app.route('/dashboard/get').get(getDashBoard(db));
+
 
   //OnGoing Project Controller
  app.route('/ongoing_project/get').get(getOnGoingProjectController(db));

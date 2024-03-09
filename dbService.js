@@ -38,11 +38,12 @@ class DBService {
       const time = this.getCurrentTime();
       const response = await new Promise((resolve, reject) => {
         const query =
-          "INSERT INTO elite.user (username, name, email, password, created_at) VALUES (?, ?, ?, ?, ?)";
+          "INSERT INTO elite.user (username, name, email, role, password, created_at) VALUES (?, ?, ?, ?, ?, ?)";
         const values = [
           data.username,
           data.username,
           data.email,
+          data.role,
           data.password,
           time,
         ];
@@ -78,7 +79,8 @@ class DBService {
   async getDashBoardItem(data) {
     try {
       const response = await new Promise((resolve, reject) => {
-        const query = "SELECT 'elite.ambassador' AS table_name, COUNT(*) AS row_count FROM elite.ambassador UNION ALL SELECT 'elite.clubs_societies' AS table_name, COUNT(*) AS row_count FROM elite.clubs_societies UNION ALL SELECT 'elite.committe' AS table_name, COUNT(*) AS row_count FROM elite.committe UNION ALL SELECT 'elite.competetion' AS table_name, COUNT(*) AS row_count FROM elite.competetion UNION ALL SELECT 'elite.course' AS table_name, COUNT(*) AS row_count FROM elite.course UNION ALL SELECT 'elite.exhibition' AS table_name, COUNT(*) AS row_count FROM elite.exhibition UNION ALL SELECT 'elite.news' AS table_name, COUNT(*) AS row_count FROM elite.news UNION ALL SELECT 'elite.ongoing_project' AS table_name, COUNT(*) AS row_count FROM elite.ongoing_project UNION ALL SELECT 'elite.research_assistantjob' AS table_name, COUNT(*) AS row_count FROM elite.research_assistantjob UNION ALL SELECT 'elite.roles' AS table_name, COUNT(*) AS row_count FROM elite.roles UNION ALL SELECT 'elite.sponsors' AS table_name, COUNT(*) AS row_count FROM elite.sponsors UNION ALL SELECT 'elite.team_member' AS table_name, COUNT(*) AS row_count FROM elite.team_member UNION ALL SELECT 'elite.training' AS table_name, COUNT(*) AS row_count FROM elite.training UNION ALL SELECT 'elite.workshop' AS table_name, COUNT(*) AS row_count FROM elite.workshop UNION ALL SELECT 'elite.inovation_project' AS table_name, COUNT(*) AS row_count FROM elite.inovation_project;";
+        const query =
+          "SELECT 'elite.ambassador' AS table_name, COUNT(*) AS row_count FROM elite.ambassador UNION ALL SELECT 'elite.clubs_societies' AS table_name, COUNT(*) AS row_count FROM elite.clubs_societies UNION ALL SELECT 'elite.committe' AS table_name, COUNT(*) AS row_count FROM elite.committe UNION ALL SELECT 'elite.competetion' AS table_name, COUNT(*) AS row_count FROM elite.competetion UNION ALL SELECT 'elite.course' AS table_name, COUNT(*) AS row_count FROM elite.course UNION ALL SELECT 'elite.exhibition' AS table_name, COUNT(*) AS row_count FROM elite.exhibition UNION ALL SELECT 'elite.news' AS table_name, COUNT(*) AS row_count FROM elite.news UNION ALL SELECT 'elite.ongoing_project' AS table_name, COUNT(*) AS row_count FROM elite.ongoing_project UNION ALL SELECT 'elite.research_assistantjob' AS table_name, COUNT(*) AS row_count FROM elite.research_assistantjob UNION ALL SELECT 'elite.roles' AS table_name, COUNT(*) AS row_count FROM elite.roles UNION ALL SELECT 'elite.sponsors' AS table_name, COUNT(*) AS row_count FROM elite.sponsors UNION ALL SELECT 'elite.team_member' AS table_name, COUNT(*) AS row_count FROM elite.team_member UNION ALL SELECT 'elite.training' AS table_name, COUNT(*) AS row_count FROM elite.training UNION ALL SELECT 'elite.workshop' AS table_name, COUNT(*) AS row_count FROM elite.workshop UNION ALL SELECT 'elite.inovation_project' AS table_name, COUNT(*) AS row_count FROM elite.inovation_project;";
         connection.query(query, (err, results) => {
           if (err) reject(new Error(err.message));
           resolve(results);
@@ -90,19 +92,52 @@ class DBService {
     }
   }
 
+  async getUserDataList() {
+    const response = await new Promise((resolve, reject) => {
+      const query = "SELECT id,username,email,role from elite.user";
+      connection.query(query, (err, results) => {
+        if (err) reject(new Error(err.message));
+        resolve(results);
+      });
+    });
+    return { detail: "Success", data: response, status_code: 200 };
+  }
+  catch(err) {
+    return { detail: "Failed", data: err, status_code: 400 };
+  }
+
   async updateUserData(data) {
     try {
       const time = this.getCurrentTime();
       const response = await new Promise((resolve, reject) => {
         const query =
-          "UPDATE elite.user SET name = ?, username = ?, image = ?, email = ?, password = ?,updated_at = ? WHERE id = ?";
+          "UPDATE elite.user SET name = ?, username = ?, image = ?, email = ?,role = ?, password = ?,updated_at = ? WHERE id = ?";
         const values = [
           data.name,
           data.username,
           data.image,
           data.email,
+          data.role,
           data.password,
           time,
+          data.id, // Assuming you have the ID of the record you want to update
+        ];
+        connection.query(query, values, (err, results) => {
+          if (err) reject(new Error(err.message));
+          resolve(results);
+        });
+      });
+      return { detail: "Success", data: response, status_code: 200 };
+    } catch (err) {
+      return { detail: "Failed", data: err, status_code: 400 };
+    }
+  }
+
+  async deleteUserData(data) {
+    try {
+      const response = await new Promise((resolve, reject) => {
+        const query = "DELETE from elite.user WHERE id = ?";
+        const values = [
           data.id, // Assuming you have the ID of the record you want to update
         ];
         connection.query(query, values, (err, results) => {
@@ -377,14 +412,16 @@ class DBService {
       const time = this.getCurrentTime();
       const response = await new Promise((resolve, reject) => {
         const query =
-          "INSERT INTO elite.training (title, image, description, mode, objective, venue, fee, link, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+          "INSERT INTO elite.training (title, image, trainer, description, mode, objective, venue,date,  fee, link, created_at) VALUES (?,? , ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         const values = [
           data.title,
           data.image,
+          data.trainer,
           data.description,
           data.mode,
           data.objective,
           data.venue,
+          data.date,
           data.fee,
           data.link,
           time,
@@ -405,14 +442,16 @@ class DBService {
       const time = this.getCurrentTime();
       const response = await new Promise((resolve, reject) => {
         const query =
-          "UPDATE elite.training SET title = ?, image = ?, description = ?, mode = ?, objective = ?, venue = ?, fee = ?, link = ?, updated_at = ? WHERE id = ?";
+          "UPDATE elite.training SET title = ?, image = ?,trainer = ?, description = ?, mode = ?, objective = ?, venue = ?,date = ? , fee = ?, link = ?, updated_at = ? WHERE id = ?";
         const values = [
           data.title,
           data.image,
+          data.trainer,
           data.description,
           data.mode,
           data.objective,
           data.venue,
+          data.date,
           data.fee,
           data.link,
           time,
@@ -468,12 +507,14 @@ class DBService {
       const time = this.getCurrentTime();
       const response = await new Promise((resolve, reject) => {
         const query =
-          "INSERT INTO elite.workshop (title, image, description, mode, objective, venue, fee, link, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+          "INSERT INTO elite.workshop (title, image,trainer, description, mode,date, objective, venue, fee, link, created_at) VALUES (?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?);";
         const values = [
           data.title,
           data.image,
+          data.trainer,
           data.description,
           data.mode,
+          data.date,
           data.objective,
           data.venue,
           data.fee,
@@ -496,12 +537,14 @@ class DBService {
       const time = this.getCurrentTime();
       const response = await new Promise((resolve, reject) => {
         const query =
-          "UPDATE elite.workshop SET title = ?, image = ?, description = ?, mode = ?, objective = ?, venue = ?, fee = ?, link = ?, updated_at = ? WHERE id = ?";
+          "UPDATE elite.workshop SET title = ?, image = ?,trainer = ?, description = ?, mode = ?, date = ?, objective = ?, venue = ?, fee = ?, link = ?, updated_at = ? WHERE id = ?";
         const values = [
           data.title,
           data.image,
+          data.trainer,
           data.description,
           data.mode,
+          data.date,
           data.objective,
           data.venue,
           data.fee,
@@ -559,7 +602,7 @@ class DBService {
       const time = this.getCurrentTime();
       const response = await new Promise((resolve, reject) => {
         const query =
-          "INSERT INTO elite.competetion (title, image, description, mode, objective, venue, fee, link, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+          "INSERT INTO elite.competetion (title, image, description, mode, objective, venue,deadline, fee, link, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         const values = [
           data.title,
           data.image,
@@ -567,6 +610,7 @@ class DBService {
           data.mode,
           data.objective,
           data.venue,
+          data.deadline,
           data.fee,
           data.link,
           time,
@@ -587,7 +631,7 @@ class DBService {
       const time = this.getCurrentTime();
       const response = await new Promise((resolve, reject) => {
         const query =
-          "UPDATE elite.competetion SET title = ?, image = ?, description = ?, mode = ?, objective = ?, venue = ?, fee = ?, link = ?, updated_at = ? WHERE id = ?";
+          "UPDATE elite.competetion SET title = ?, image = ?, description = ?, mode = ?, objective = ?, venue = ?,deadline = ?, fee = ?, link = ?, updated_at = ? WHERE id = ?";
         const values = [
           data.title,
           data.image,
@@ -595,6 +639,7 @@ class DBService {
           data.mode,
           data.objective,
           data.venue,
+          data.deadline,
           data.fee,
           data.link,
           time,
@@ -650,7 +695,7 @@ class DBService {
       const time = this.getCurrentTime();
       const response = await new Promise((resolve, reject) => {
         const query =
-          "INSERT INTO elite.exhibition (title, image, description, mode, objective, venue, fee, link, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+          "INSERT INTO elite.exhibition (title, image, description, mode, objective, venue,deadline, fee, link, created_at) VALUES (?, ?, ?, ?, ?,?, ?, ?, ?, ?);";
         const values = [
           data.title,
           data.image,
@@ -658,6 +703,7 @@ class DBService {
           data.mode,
           data.objective,
           data.venue,
+          data.deadline,
           data.fee,
           data.link,
           time,
@@ -678,7 +724,7 @@ class DBService {
       const time = this.getCurrentTime();
       const response = await new Promise((resolve, reject) => {
         const query =
-          "UPDATE elite.exhibition SET title = ?, image = ?, description = ?, mode = ?, objective = ?, venue = ?, fee = ?, link = ?, updated_at = ? WHERE id = ?";
+          "UPDATE elite.exhibition SET title = ?, image = ?, description = ?, mode = ?, objective = ?, venue = ?,deadline = ?, fee = ?, link = ?, updated_at = ? WHERE id = ?";
         const values = [
           data.title,
           data.image,
@@ -686,6 +732,7 @@ class DBService {
           data.mode,
           data.objective,
           data.venue,
+          data.deadline,
           data.fee,
           data.link,
           time,

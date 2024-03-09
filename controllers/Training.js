@@ -22,6 +22,8 @@ const postTrainingController = (db) => async (req, res) => {
       objective: req.body.objective,
       venue: req.body.venue,
       fee: req.body.fee,
+      date:req.body.date,
+      trainer:req.body.trainer,
       link: req.body.link,
     };
     const result = await db.insertTraining(data);
@@ -38,6 +40,8 @@ const updateTrainingController = (db) => async (req, res) => {
       image: req.body.image || req.file?.path,
       description: req.body.description,
       mode: req.body.mode,
+      trainer: req.body.trainer,
+      date: req.body.date,
       objective: req.body.objective,
       venue: req.body.venue,
       fee: req.body.fee,

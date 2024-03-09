@@ -19,7 +19,7 @@ const { getSponsorsController,updateSponsorsController,deleteSponsorsController,
 const { getTeamMemberController,updateTeamMemberController,deleteTeamMemberController,postTeamMemberController } = require('./controllers/TeamMember');
 const { getTrainingController,updateTrainingController,deleteTrainingController,postTrainingController } = require('./controllers/Training');
 const { getWorkshopsController ,updateWorkshopsController,deleteWorkshopsController,postWorkshopsController} = require('./controllers/Workshops');
-const { validateLogin, postUserData, updateUserData, getDashBoard } = require('./controllers/UserData');
+const { validateLogin, postUserData, updateUserData,deleteUser,validateUser,getUserList, getDashBoard } = require('./controllers/UserData');
 const db = new DBService();
 dotenv.config();
 app.use(
@@ -51,9 +51,12 @@ const storage = multer.diskStorage({
 
   //User Login
  app.route('/admin/login/:email/:password').post(validateLogin(db));
+ app.route('/admin/validateuser/:email').post(validateUser(db))
  app.route('/admin/register').post(postUserData(db));
  app.route('/profile/update/:id').put(upload.single('image'),updateUserData(db));
  app.route('/dashboard/get').get(getDashBoard(db));
+ app.route('/admin/userlist').get(getUserList(db));
+ app.route('/admin/delete/:id').post(deleteUser(db));
 
 
   //OnGoing Project Controller

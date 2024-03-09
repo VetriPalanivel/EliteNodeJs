@@ -41,29 +41,78 @@ const getDashBoard = (db) => async (req, res) => {
     }
   };
 
+  const validateUser = (db) => async(req, res) => {
+    try {
+      const data ={
+        email:req.params.email,
+      }
+      const result = await db.getUserData(data);
+      if(result.data.length > 0){
+        res
+        .status(200)
+        .json({
+          detail: "Login Success",
+          data:result.data,
+          status_code: 200,
+        });
+      }else{
+        res
+        .status(200)
+        .json({
+          detail: "Login Failed, User not Authorized",
+          status_code: 400,
+        });
+      }
+    } catch (err) {
+      res.status(500).json({ error: "Internal Server Error", status_code: 500 });
+    }
+  };
+
   const postUserData = (db) => async (req, res) => {
     try {
       const data = {
         username: req.body.username,
         password: req.body.password,
         email: req.body.email,
+        role: req.body.role,
       };
       const result = await db.getUserData(data);
-      if(result.data.length>0){
+      if(result.data.length == 0){
+        const result = await db.insertUserData(data);
+        res.status(200).json(result);
+      }else{
         res
         .status(200)
         .json({
           detail: "User Already exhist",
           status_code: 400,
         });
-      }else{
-        const result = await db.insertUserData(data);
-        res.status(200).json(result);
       }
     } catch (err) {
       res.status(500).json({ error: "Internal Server Error", status_code: 500 });
     }
   };
+
+  const getUserList = (db) => async(req,res) =>{
+    try {
+    const result = await db.getUserDataList();
+    res.status(200).json(result);
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({ error: "Internal Server Error", status_code: 500 });
+  }
+  }
+  const deleteUser = (db) => async(req,res) =>{
+    try {
+      const data = {
+        id: req.params.id,
+      };
+      const result = await db.deleteUserData(data);
+      res.status(200).json(result);
+    } catch (err) {
+      res.status(500).json({ error: "Internal Server Error", status_code: 500 });
+    }
+  }
   
   const updateUserData = (db) => async (req, res) => {
     try {
@@ -73,6 +122,7 @@ const getDashBoard = (db) => async (req, res) => {
         email: req.body.email,
         password: req.body.password,
         username: req.body.username,
+        role: req.body.role,
         id: req.params.id,
       };
       const result = await db.updateUserData(data);
@@ -87,6 +137,9 @@ const getDashBoard = (db) => async (req, res) => {
     getDashBoard,
     postUserData,
     updateUserData,
-    validateLogin
+    validateLogin,
+    validateUser,
+    getUserList,
+    deleteUser
   };
   

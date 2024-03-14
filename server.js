@@ -98,8 +98,8 @@ const storage = multer.diskStorage({
 
  //Course Controller
  app.route('/course/get').get(getCourseController(db));
- app.route('/course/update/:id').put(upload.single('image'),updateCourseController(db));
- app.route('/course/create').post(upload.single('image'),postCourseController(db));
+ app.route('/course/update/:id').put(upload.fields([{ name: 'image', maxCount: 1 }, { name: 'structure', maxCount: 1 }]),updateCourseController(db));
+ app.route('/course/create').post(upload.fields([{ name: 'image', maxCount: 1 }, { name: 'structure', maxCount: 1 }]),postCourseController(db));
  app.route('/course/delete/:id').post(deleteCourseController(db));
 
 //  Exhibition Controller

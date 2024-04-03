@@ -25,6 +25,7 @@ const postWorkshopsController = (db) => async (req, res) => {
       venue: req.body.venue,
       fee: req.body.fee,
       link: req.body.link,
+      youtube: req.body.youtube,
     };
     const result = await db.insertWorkshop(data);
     res.status(200).json(result);
@@ -46,6 +47,7 @@ const updateWorkshopsController = (db) => async (req, res) => {
       venue: req.body.venue,
       fee: req.body.fee,
       link: req.body.link,
+      youtube: req.body.youtube,
       id: req.params.id,
     };
     const result = await db.updateWorkshop(data);

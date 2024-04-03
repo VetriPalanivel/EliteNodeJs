@@ -24,6 +24,7 @@ const postCompetetionController = (db) => async (req, res) => {
       venue: req.body.venue,
       fee: req.body.fee,
       link: req.body.link,
+      youtube: req.body.youtube,
     };
     const result = await db.insertCompetetion(data);
     res.status(200).json(result);
@@ -44,6 +45,7 @@ const updateCompetetionController = (db) => async (req, res) => {
       venue: req.body.venue,
       fee: req.body.fee,
       link: req.body.link,
+      youtube: req.body.youtube,
       id: req.params.id,
     };
     const result = await db.updateCompetetion(data);

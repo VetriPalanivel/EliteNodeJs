@@ -412,7 +412,7 @@ class DBService {
       const time = this.getCurrentTime();
       const response = await new Promise((resolve, reject) => {
         const query =
-          "INSERT INTO elite.training (title, image, trainer, description, mode, objective, venue,date,  fee, link, created_at) VALUES (?,? , ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+          "INSERT INTO elite.training (title, image, trainer, description, mode, objective, venue,date,  fee, link, youtube, created_at) VALUES (?,? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         const values = [
           data.title,
           data.image,
@@ -424,6 +424,7 @@ class DBService {
           data.date,
           data.fee,
           data.link,
+          data.youtube,
           time,
         ];
         connection.query(query, values, (err, results) => {
@@ -442,7 +443,7 @@ class DBService {
       const time = this.getCurrentTime();
       const response = await new Promise((resolve, reject) => {
         const query =
-          "UPDATE elite.training SET title = ?, image = ?,trainer = ?, description = ?, mode = ?, objective = ?, venue = ?,date = ? , fee = ?, link = ?, updated_at = ? WHERE id = ?";
+          "UPDATE elite.training SET title = ?, image = ?,trainer = ?, description = ?, mode = ?, objective = ?, venue = ?,date = ? , fee = ?, link = ?,youtube = ?, updated_at = ? WHERE id = ?";
         const values = [
           data.title,
           data.image,
@@ -454,6 +455,7 @@ class DBService {
           data.date,
           data.fee,
           data.link,
+          data.youtube,
           time,
           data.id, // Assuming you have the ID of the record you want to update
         ];
@@ -507,7 +509,7 @@ class DBService {
       const time = this.getCurrentTime();
       const response = await new Promise((resolve, reject) => {
         const query =
-          "INSERT INTO elite.workshop (title, image,trainer, description, mode,date, objective, venue, fee, link, created_at) VALUES (?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?);";
+          "INSERT INTO elite.workshop (title, image,trainer, description, mode,date, objective, venue, fee, link,youtube, created_at) VALUES (?, ?, ?, ?,?, ?, ?, ?, ?, ?,?, ?);";
         const values = [
           data.title,
           data.image,
@@ -519,6 +521,7 @@ class DBService {
           data.venue,
           data.fee,
           data.link,
+          data.youtube,
           time,
         ];
         connection.query(query, values, (err, results) => {
@@ -537,7 +540,7 @@ class DBService {
       const time = this.getCurrentTime();
       const response = await new Promise((resolve, reject) => {
         const query =
-          "UPDATE elite.workshop SET title = ?, image = ?,trainer = ?, description = ?, mode = ?, date = ?, objective = ?, venue = ?, fee = ?, link = ?, updated_at = ? WHERE id = ?";
+          "UPDATE elite.workshop SET title = ?, image = ?,trainer = ?, description = ?, mode = ?, date = ?, objective = ?, venue = ?, fee = ?, link = ?,youtube=?, updated_at = ? WHERE id = ?";
         const values = [
           data.title,
           data.image,
@@ -549,6 +552,7 @@ class DBService {
           data.venue,
           data.fee,
           data.link,
+          data.youtube,
           time,
           data.id, // Assuming you have the ID of the record you want to update
         ];
@@ -602,7 +606,7 @@ class DBService {
       const time = this.getCurrentTime();
       const response = await new Promise((resolve, reject) => {
         const query =
-          "INSERT INTO elite.competetion (title, image, description, mode, objective, venue,deadline, fee, link, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+          "INSERT INTO elite.competetion (title, image, description, mode, objective, venue,deadline, fee, link,youtube, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?);";
         const values = [
           data.title,
           data.image,
@@ -613,6 +617,7 @@ class DBService {
           data.deadline,
           data.fee,
           data.link,
+          data.youtube,
           time,
         ];
         connection.query(query, values, (err, results) => {
@@ -631,7 +636,7 @@ class DBService {
       const time = this.getCurrentTime();
       const response = await new Promise((resolve, reject) => {
         const query =
-          "UPDATE elite.competetion SET title = ?, image = ?, description = ?, mode = ?, objective = ?, venue = ?,deadline = ?, fee = ?, link = ?, updated_at = ? WHERE id = ?";
+          "UPDATE elite.competetion SET title = ?, image = ?, description = ?, mode = ?, objective = ?, venue = ?,deadline = ?, fee = ?, link = ?, youtube = ?, updated_at = ? WHERE id = ?";
         const values = [
           data.title,
           data.image,
@@ -642,6 +647,7 @@ class DBService {
           data.deadline,
           data.fee,
           data.link,
+          data.youtube,
           time,
           data.id, // Assuming you have the ID of the record you want to update
         ];
@@ -695,7 +701,7 @@ class DBService {
       const time = this.getCurrentTime();
       const response = await new Promise((resolve, reject) => {
         const query =
-          "INSERT INTO elite.exhibition (title, image, description, mode, objective, venue,deadline, fee, link, created_at) VALUES (?, ?, ?, ?, ?,?, ?, ?, ?, ?);";
+          "INSERT INTO elite.exhibition (title, image, description, mode, objective, venue,deadline, fee, link,youtube, created_at) VALUES (?, ?, ?, ?, ?,?, ?, ?, ?,?, ?);";
         const values = [
           data.title,
           data.image,
@@ -706,6 +712,7 @@ class DBService {
           data.deadline,
           data.fee,
           data.link,
+          data.youtube,
           time,
         ];
         connection.query(query, values, (err, results) => {
@@ -724,7 +731,7 @@ class DBService {
       const time = this.getCurrentTime();
       const response = await new Promise((resolve, reject) => {
         const query =
-          "UPDATE elite.exhibition SET title = ?, image = ?, description = ?, mode = ?, objective = ?, venue = ?,deadline = ?, fee = ?, link = ?, updated_at = ? WHERE id = ?";
+          "UPDATE elite.exhibition SET title = ?, image = ?, description = ?, mode = ?, objective = ?, venue = ?,deadline = ?, fee = ?, link = ?, youtube = ?, updated_at = ? WHERE id = ?";
         const values = [
           data.title,
           data.image,
@@ -735,6 +742,7 @@ class DBService {
           data.deadline,
           data.fee,
           data.link,
+          data.youtube,
           time,
           data.id, // Assuming you have the ID of the record you want to update
         ];
@@ -1468,5 +1476,45 @@ class DBService {
       return "error";
     }
   }
+
+  async insertContactUs(data) {
+    try {
+      const time = this.getCurrentTime();
+      const response = await new Promise((resolve, reject) => {
+        const query =
+          "INSERT INTO elite.contactus (name, email, number, message, created_at) VALUES (?, ?, ?, ?, ?);";
+        const values = [
+          data.name,
+          data.email,
+          data.number,
+          data.message,
+          time,
+        ];
+        connection.query(query, values, (err, results) => {
+          if (err) reject(new Error(err.message));
+          resolve(results);
+        });
+      });
+      return { detail: "Success", data: response, status_code: 200 };
+    } catch (err) {
+      return { detail: "Failed", data: err, status_code: 400 };
+    }
+  }
+
+async getContactUs() {
+  try {
+    const response = await new Promise((resolve, reject) => {
+      const query =
+        "SELECT * FROM elite.contactus ORDER BY CASE WHEN updated_at IS NOT NULL THEN updated_at ELSE created_at END DESC;";
+      connection.query(query, (err, results) => {
+        if (err) reject(new Error(err.message));
+        resolve(results);
+      });
+    });
+    return response;
+  } catch (err) {
+    return "error";
+  }
+}
 }
 module.exports = DBService;

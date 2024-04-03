@@ -20,11 +20,13 @@ const { getTeamMemberController,updateTeamMemberController,deleteTeamMemberContr
 const { getTrainingController,updateTrainingController,deleteTrainingController,postTrainingController } = require('./controllers/Training');
 const { getWorkshopsController ,updateWorkshopsController,deleteWorkshopsController,postWorkshopsController} = require('./controllers/Workshops');
 const { validateLogin, postUserData, updateUserData,deleteUser,validateUser,getUserList, getDashBoard } = require('./controllers/UserData');
+const { getContactUsController, postContactUsController } = require('./controllers/ContactUs');
 const db = new DBService();
 dotenv.config();
+const allowedOrigins = ['http://localhost:3000', 'http://localhost:5173', 'http://anotherdomain.com'];
 app.use(
 	cors({
-		origin: 'http://localhost:3000', // Allow requests from this origin
+		origin: allowedOrigins, // Allow requests from this origin
 		optionsSuccessStatus: 200,
 	})
 );
@@ -150,6 +152,9 @@ app.route('/workshop/get').get(getWorkshopsController(db));
 app.route('/workshop/update/:id').put(upload.single('image'),updateWorkshopsController(db));
 app.route('/workshop/create').post(upload.single('image'),postWorkshopsController(db));
 app.route('/workshop/delete/:id').post(deleteWorkshopsController(db));
+
+app.route('/contactus/get').get(getContactUsController(db));
+app.route('/contactus/create').post(postContactUsController(db));
 
 app.listen(port, () => {
 	console.log(`[server]: Server is running at http://localhost:${port}`);

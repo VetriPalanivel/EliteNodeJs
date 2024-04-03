@@ -25,6 +25,7 @@ const postTrainingController = (db) => async (req, res) => {
       date:req.body.date,
       trainer:req.body.trainer,
       link: req.body.link,
+      youtube: req.body.youtube,
     };
     const result = await db.insertTraining(data);
     res.status(200).json(result);
@@ -46,6 +47,7 @@ const updateTrainingController = (db) => async (req, res) => {
       venue: req.body.venue,
       fee: req.body.fee,
       link: req.body.link,
+      youtube: req.body.youtube,
       id: req.params.id,
     };
     const result = await db.updateTraining(data);

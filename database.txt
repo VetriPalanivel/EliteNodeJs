@@ -1,0 +1,243 @@
+create database elite;
+use elite;
+CREATE TABLE `ongoing_project` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`title` TEXT,
+	`image` TEXT,
+	`description` TEXT,
+	`status` varchar(256),
+	`created_at` TIMESTAMP,
+	`updated_at` TIMESTAMP,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `research_assistantjob` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`title` TEXT,
+	`image` TEXT,
+	`description` TEXT,
+    `requirement` TEXT,
+    `benefit` TEXT,
+	`duration` TEXT,
+	`deadline` TEXT,
+	`created_at` TIMESTAMP,
+	`updated_at` TIMESTAMP,
+	PRIMARY KEY (`id`)
+);
+CREATE TABLE `inovation_project` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`title` TEXT,
+	`image` TEXT,
+	`description` TEXT,
+	`status` varchar(256),
+	`created_at` TIMESTAMP,
+	`updated_at` TIMESTAMP,
+	PRIMARY KEY (`id`)
+);
+
+
+CREATE TABLE `training` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`title` TEXT,
+    `trainer` TEXT,
+	`image` TEXT,
+	`description` TEXT,
+    `objective` TEXT,
+    `venue` TEXT,
+    `date` TEXT,
+    `mode` varchar(256),
+	`fee` TEXT,
+	`link` TEXT,
+    `poster1` TEXT,
+	`poster2` TEXT,
+    `poster3` TEXT,
+    `youtube` TEXT,
+	`created_at` TIMESTAMP,
+	`updated_at` TIMESTAMP,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `workshop` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`title` TEXT,
+	`image` TEXT,
+     `trainer` TEXT,
+	`description` TEXT,
+    `objective` TEXT,
+    `venue` TEXT,
+     `date` TEXT,
+    `mode` varchar(256),
+	`fee` TEXT,
+	`link` TEXT,
+    `poster1` TEXT,
+	`poster2` TEXT,
+    `poster3` TEXT,
+	`youtube` TEXT,
+	`created_at` TIMESTAMP,
+	`updated_at` TIMESTAMP,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `competetion` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`title` TEXT,
+	`image` TEXT,
+	`description` TEXT,
+    `objective` TEXT,
+    `venue` TEXT,
+     `deadline` TEXT,
+    `mode` varchar(256),
+	`fee` TEXT,
+	`link` TEXT,
+    `poster1` TEXT,
+	`poster2` TEXT,
+    `poster3` TEXT,
+	`youtube` TEXT,
+	`created_at` TIMESTAMP,
+	`updated_at` TIMESTAMP,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `exhibition` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`title` TEXT,
+	`image` TEXT,
+	`description` TEXT,
+    `objective` TEXT,
+     `deadline` TEXT,
+    `venue` TEXT,
+    `mode` varchar(256),
+	`fee` TEXT,
+	`link` TEXT,
+    `youtube` TEXT,
+    `poster1` TEXT,
+	`poster2` TEXT,
+    `poster3` TEXT,
+	`created_at` TIMESTAMP,
+	`updated_at` TIMESTAMP,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `clubs_societies` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`title` TEXT,
+	`image` TEXT,
+	`description` TEXT,
+	`link` TEXT,
+	`created_at` TIMESTAMP,
+	`updated_at` TIMESTAMP,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `course` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`title` TEXT,
+	`image` TEXT,
+	`description` TEXT,
+	`mode` varchar(256),
+    `objective` TEXT,
+    `domain` TEXT,
+	`duration` TEXT,
+    `benefit` TEXT,
+	`structure` TEXT,
+	`link` TEXT,
+	`created_at` TIMESTAMP,
+	`updated_at` TIMESTAMP,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `committe` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`name` TEXT,
+	`image` TEXT,
+	`organization` TEXT,
+	`role` TEXT,
+	`created_at` TIMESTAMP,
+	`updated_at` TIMESTAMP,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `ambassador` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`name` TEXT,
+	`image` TEXT,
+	`description` TEXT,
+	`country` TEXT,
+    `flag` TEXT,
+	`created_at` TIMESTAMP,
+	`updated_at` TIMESTAMP,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `team_member` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`name` TEXT,
+	`image` TEXT,
+	`description` TEXT,
+    `role` TEXT,
+	`created_at` TIMESTAMP,
+	`updated_at` TIMESTAMP,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `roles` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`title` TEXT,
+	`image` TEXT,
+	`description` TEXT,
+    `type` TEXT,
+     `location` TEXT,
+     `benefit` TEXT,
+     `responsibility` TEXT,
+	`created_at` TIMESTAMP,
+	`updated_at` TIMESTAMP,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `sponsors` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`name` TEXT,
+	`image` TEXT,
+	`description` TEXT,
+	`country` TEXT,
+    `type` TEXT,
+	`created_at` TIMESTAMP,
+	`updated_at` TIMESTAMP,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `news` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`title` TEXT,
+	`image` TEXT,
+	`description` TEXT,
+	`date` TEXT,
+	`created_at` TIMESTAMP,
+	`updated_at` TIMESTAMP,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `user` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`username` TEXT,
+	`image` TEXT,
+	`password` TEXT,
+    `email` TEXT,
+	`name` TEXT,
+    `role` TEXT,
+	`created_at` TIMESTAMP,
+	`updated_at` TIMESTAMP,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `contactus` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`name` TEXT,
+	`email` TEXT,
+	`number` TEXT,
+    `message` TEXT,
+	`created_at` TIMESTAMP,
+	`updated_at` TIMESTAMP,
+	PRIMARY KEY (`id`)
+);
+

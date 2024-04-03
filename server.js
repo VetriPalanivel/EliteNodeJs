@@ -94,8 +94,8 @@ const storage = multer.diskStorage({
 
  //Competetion Controller
  app.route('/competetion/get').get(getCompetetionController(db));
- app.route('/competetion/update/:id').put(upload.single('image'),updateCompetetionController(db));
- app.route('/competetion/create').post(upload.single('image'),postCompetetionController(db));
+ app.route('/competetion/update/:id').put(upload.fields([{ name: 'image', maxCount: 1 }, { name: 'poster1', maxCount: 1 },{ name: 'poster2', maxCount: 1 },{ name: 'poster3', maxCount: 1 }]),updateCompetetionController(db));
+ app.route('/competetion/create').post(upload.fields([{ name: 'image', maxCount: 1 }, { name: 'poster1', maxCount: 1 },{ name: 'poster2', maxCount: 1 },{ name: 'poster3', maxCount: 1 }]),postCompetetionController(db));
  app.route('/competetion/delete/:id').post(deleteCompetetionController(db));
 
  //Course Controller
@@ -106,8 +106,8 @@ const storage = multer.diskStorage({
 
 //  Exhibition Controller
 app.route('/exhibition/get').get(getExhibitionController(db));
-app.route('/exhibition/update/:id').put(upload.single('image'),updateExhibitionController(db));
-app.route('/exhibition/create').post(upload.single('image'),postExhibitionController(db));
+app.route('/exhibition/update/:id').put(upload.fields([{ name: 'image', maxCount: 1 }, { name: 'poster1', maxCount: 1 },{ name: 'poster2', maxCount: 1 },{ name: 'poster3', maxCount: 1 }]),updateExhibitionController(db));
+app.route('/exhibition/create').post(upload.fields([{ name: 'image', maxCount: 1 }, { name: 'poster1', maxCount: 1 },{ name: 'poster2', maxCount: 1 },{ name: 'poster3', maxCount: 1 }]),postExhibitionController(db));
 app.route('/exhibition/delete/:id').post(deleteExhibitionController(db));
 
 //Inovation Project Controller
@@ -143,14 +143,14 @@ app.route('/team_member/delete/:id').post(deleteTeamMemberController(db));
 
 //Training Controller
 app.route('/training/get').get(getTrainingController(db));
-app.route('/training/update/:id').put(upload.single('image'),updateTrainingController(db));
-app.route('/training/create').post(upload.single('image'),postTrainingController(db));
+app.route('/training/update/:id').put(upload.fields([{ name: 'image', maxCount: 1 }, { name: 'poster1', maxCount: 1 },{ name: 'poster2', maxCount: 1 },{ name: 'poster3', maxCount: 1 }]),updateTrainingController(db));
+app.route('/training/create').post(upload.fields([{ name: 'image', maxCount: 1 }, { name: 'poster1', maxCount: 1 },{ name: 'poster2', maxCount: 1 },{ name: 'poster3', maxCount: 1 }]),postTrainingController(db));
 app.route('/training/delete/:id').post(deleteTrainingController(db));
 
 //Workshop Controller
 app.route('/workshop/get').get(getWorkshopsController(db));
-app.route('/workshop/update/:id').put(upload.single('image'),updateWorkshopsController(db));
-app.route('/workshop/create').post(upload.single('image'),postWorkshopsController(db));
+app.route('/workshop/update/:id').put(upload.fields([{ name: 'image', maxCount: 1 }, { name: 'poster1', maxCount: 1 },{ name: 'poster2', maxCount: 1 },{ name: 'poster3', maxCount: 1 }]),updateWorkshopsController(db));
+app.route('/workshop/create').post(upload.fields([{ name: 'image', maxCount: 1 }, { name: 'poster1', maxCount: 1 },{ name: 'poster2', maxCount: 1 },{ name: 'poster3', maxCount: 1 }]),postWorkshopsController(db));
 app.route('/workshop/delete/:id').post(deleteWorkshopsController(db));
 
 app.route('/contactus/get').get(getContactUsController(db));

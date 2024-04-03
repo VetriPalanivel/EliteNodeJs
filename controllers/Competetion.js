@@ -16,7 +16,7 @@ const postCompetetionController = (db) => async (req, res) => {
   try {
     const data = {
       title: req.body.title,
-      image: req.file.path,
+      image: req.files['image'][0].path,
       description: req.body.description,
       mode: req.body.mode,
       deadline: req.body.deadline,
@@ -24,6 +24,9 @@ const postCompetetionController = (db) => async (req, res) => {
       venue: req.body.venue,
       fee: req.body.fee,
       link: req.body.link,
+      poster1: req.files['poster1'][0].path,
+      poster2: req.files['poster2'][0].path,
+      poster3: req.files['poster3'][0].path,
       youtube: req.body.youtube,
     };
     const result = await db.insertCompetetion(data);
@@ -37,7 +40,7 @@ const updateCompetetionController = (db) => async (req, res) => {
   try {
     const data = {
       title: req.body.title,
-      image: req.body.image || req.file?.path,
+      image:  req.body.image || req?.files['image'][0]?.path ,
       description: req.body.description,
       mode: req.body.mode,
       deadline: req.body.deadline,
@@ -46,6 +49,9 @@ const updateCompetetionController = (db) => async (req, res) => {
       fee: req.body.fee,
       link: req.body.link,
       youtube: req.body.youtube,
+      poster1:  req.body.poster1 || req?.files['poster1'][0]?.path ,
+      poster2:  req.body.poster2 || req?.files['poster2'][0]?.path ,
+      poster3:  req.body.poster3 || req?.files['poster3'][0]?.path ,
       id: req.params.id,
     };
     const result = await db.updateCompetetion(data);

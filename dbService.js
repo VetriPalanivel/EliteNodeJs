@@ -412,7 +412,7 @@ class DBService {
       const time = this.getCurrentTime();
       const response = await new Promise((resolve, reject) => {
         const query =
-          "INSERT INTO elite.training (title, image, trainer, description, mode, objective, venue,date,  fee, link, youtube, created_at) VALUES (?,? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+          "INSERT INTO elite.training (title, image, trainer, description, mode, objective, venue,date,  fee, link, poster1, poster2, poster3, youtube, created_at) VALUES (?,? , ?, ?, ?, ?, ?, ?, ?,?,?,?, ?, ?, ?);";
         const values = [
           data.title,
           data.image,
@@ -424,6 +424,9 @@ class DBService {
           data.date,
           data.fee,
           data.link,
+          data.poster1,
+          data.poster2,
+          data.poster3,
           data.youtube,
           time,
         ];
@@ -443,7 +446,7 @@ class DBService {
       const time = this.getCurrentTime();
       const response = await new Promise((resolve, reject) => {
         const query =
-          "UPDATE elite.training SET title = ?, image = ?,trainer = ?, description = ?, mode = ?, objective = ?, venue = ?,date = ? , fee = ?, link = ?,youtube = ?, updated_at = ? WHERE id = ?";
+          "UPDATE elite.training SET title = ?, image = ?,trainer = ?, description = ?, mode = ?, objective = ?, venue = ?,date = ? , fee = ?, link = ?,poster1 = ?, poster2 = ?, poster3 = ?, youtube = ?, updated_at = ? WHERE id = ?";
         const values = [
           data.title,
           data.image,
@@ -455,6 +458,9 @@ class DBService {
           data.date,
           data.fee,
           data.link,
+          data.poster1,
+          data.poster2,
+          data.poster3,
           data.youtube,
           time,
           data.id, // Assuming you have the ID of the record you want to update
@@ -509,7 +515,7 @@ class DBService {
       const time = this.getCurrentTime();
       const response = await new Promise((resolve, reject) => {
         const query =
-          "INSERT INTO elite.workshop (title, image,trainer, description, mode,date, objective, venue, fee, link,youtube, created_at) VALUES (?, ?, ?, ?,?, ?, ?, ?, ?, ?,?, ?);";
+          "INSERT INTO elite.workshop (title, image,trainer, description, mode,date, objective, venue, fee, link, poster1, poster2, poster3, youtube, created_at) VALUES (?,?,?,?, ?, ?, ?,?, ?, ?, ?, ?, ?,?, ?);";
         const values = [
           data.title,
           data.image,
@@ -521,6 +527,9 @@ class DBService {
           data.venue,
           data.fee,
           data.link,
+          data.poster1,
+          data.poster2,
+          data.poster3,
           data.youtube,
           time,
         ];
@@ -540,7 +549,7 @@ class DBService {
       const time = this.getCurrentTime();
       const response = await new Promise((resolve, reject) => {
         const query =
-          "UPDATE elite.workshop SET title = ?, image = ?,trainer = ?, description = ?, mode = ?, date = ?, objective = ?, venue = ?, fee = ?, link = ?,youtube=?, updated_at = ? WHERE id = ?";
+          "UPDATE elite.workshop SET title = ?, image = ?,trainer = ?, description = ?, mode = ?, date = ?, objective = ?, venue = ?, fee = ?, link = ?,poster1 = ?, poster2 = ?, poster3 = ?,youtube=?, updated_at = ? WHERE id = ?";
         const values = [
           data.title,
           data.image,
@@ -552,6 +561,10 @@ class DBService {
           data.venue,
           data.fee,
           data.link,
+          data.poster1,
+          data.poster2,
+          data.poster3,
+          data.youtube,
           data.youtube,
           time,
           data.id, // Assuming you have the ID of the record you want to update
@@ -606,7 +619,7 @@ class DBService {
       const time = this.getCurrentTime();
       const response = await new Promise((resolve, reject) => {
         const query =
-          "INSERT INTO elite.competetion (title, image, description, mode, objective, venue,deadline, fee, link,youtube, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?);";
+          "INSERT INTO elite.competetion (title, image, description, mode, objective, venue,deadline, fee, link, poster1, poster2, poster3,youtube, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?,?, ?,?, ?);";
         const values = [
           data.title,
           data.image,
@@ -617,6 +630,9 @@ class DBService {
           data.deadline,
           data.fee,
           data.link,
+          data.poster1,
+          data.poster2,
+          data.poster3,
           data.youtube,
           time,
         ];
@@ -636,7 +652,7 @@ class DBService {
       const time = this.getCurrentTime();
       const response = await new Promise((resolve, reject) => {
         const query =
-          "UPDATE elite.competetion SET title = ?, image = ?, description = ?, mode = ?, objective = ?, venue = ?,deadline = ?, fee = ?, link = ?, youtube = ?, updated_at = ? WHERE id = ?";
+          "UPDATE elite.competetion SET title = ?, image = ?, description = ?, mode = ?, objective = ?, venue = ?,deadline = ?, fee = ?, link = ?,poster1 = ?, poster2 = ?, poster3 = ?, youtube = ?, updated_at = ? WHERE id = ?";
         const values = [
           data.title,
           data.image,
@@ -647,6 +663,9 @@ class DBService {
           data.deadline,
           data.fee,
           data.link,
+          data.poster1,
+          data.poster2,
+          data.poster3,
           data.youtube,
           time,
           data.id, // Assuming you have the ID of the record you want to update
@@ -701,7 +720,7 @@ class DBService {
       const time = this.getCurrentTime();
       const response = await new Promise((resolve, reject) => {
         const query =
-          "INSERT INTO elite.exhibition (title, image, description, mode, objective, venue,deadline, fee, link,youtube, created_at) VALUES (?, ?, ?, ?, ?,?, ?, ?, ?,?, ?);";
+          "INSERT INTO elite.exhibition (title, image, description, mode, objective, venue,deadline, fee, link,poster1, poster2, poster3,youtube, created_at) VALUES (?, ?,?,?,?, ?, ?, ?,?, ?, ?, ?,?, ?);";
         const values = [
           data.title,
           data.image,
@@ -712,6 +731,9 @@ class DBService {
           data.deadline,
           data.fee,
           data.link,
+          data.poster1,
+          data.poster2,
+          data.poster3,
           data.youtube,
           time,
         ];
@@ -731,7 +753,7 @@ class DBService {
       const time = this.getCurrentTime();
       const response = await new Promise((resolve, reject) => {
         const query =
-          "UPDATE elite.exhibition SET title = ?, image = ?, description = ?, mode = ?, objective = ?, venue = ?,deadline = ?, fee = ?, link = ?, youtube = ?, updated_at = ? WHERE id = ?";
+          "UPDATE elite.exhibition SET title = ?, image = ?, description = ?, mode = ?, objective = ?, venue = ?,deadline = ?, fee = ?, link = ?,poster1 = ?, poster2 = ?, poster3 = ?, youtube = ?, updated_at = ? WHERE id = ?";
         const values = [
           data.title,
           data.image,
@@ -742,6 +764,9 @@ class DBService {
           data.deadline,
           data.fee,
           data.link,
+          data.poster1,
+          data.poster2,
+          data.poster3,
           data.youtube,
           time,
           data.id, // Assuming you have the ID of the record you want to update

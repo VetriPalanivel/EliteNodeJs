@@ -80,7 +80,7 @@ class DBService {
     try {
       const response = await new Promise((resolve, reject) => {
         const query =
-          "SELECT 'elite.ambassador' AS table_name, COUNT(*) AS row_count FROM elite.ambassador UNION ALL SELECT 'elite.clubs_societies' AS table_name, COUNT(*) AS row_count FROM elite.clubs_societies UNION ALL SELECT 'elite.committe' AS table_name, COUNT(*) AS row_count FROM elite.committe UNION ALL SELECT 'elite.competetion' AS table_name, COUNT(*) AS row_count FROM elite.competetion UNION ALL SELECT 'elite.course' AS table_name, COUNT(*) AS row_count FROM elite.course UNION ALL SELECT 'elite.exhibition' AS table_name, COUNT(*) AS row_count FROM elite.exhibition UNION ALL SELECT 'elite.news' AS table_name, COUNT(*) AS row_count FROM elite.news UNION ALL SELECT 'elite.ongoing_project' AS table_name, COUNT(*) AS row_count FROM elite.ongoing_project UNION ALL SELECT 'elite.research_assistantjob' AS table_name, COUNT(*) AS row_count FROM elite.research_assistantjob UNION ALL SELECT 'elite.roles' AS table_name, COUNT(*) AS row_count FROM elite.roles UNION ALL SELECT 'elite.sponsors' AS table_name, COUNT(*) AS row_count FROM elite.sponsors UNION ALL SELECT 'elite.team_member' AS table_name, COUNT(*) AS row_count FROM elite.team_member UNION ALL SELECT 'elite.training' AS table_name, COUNT(*) AS row_count FROM elite.training UNION ALL SELECT 'elite.workshop' AS table_name, COUNT(*) AS row_count FROM elite.workshop UNION ALL SELECT 'elite.inovation_project' AS table_name, COUNT(*) AS row_count FROM elite.inovation_project;";
+          "SELECT 'elite.ambassador' AS table_name, COUNT(*) AS row_count FROM elite.ambassador UNION ALL SELECT 'elite.clubs_societies' AS table_name, COUNT(*) AS row_count FROM elite.clubs_societies UNION ALL SELECT 'elite.committe' AS table_name, COUNT(*) AS row_count FROM elite.committe UNION ALL SELECT 'elite.competetion' AS table_name, COUNT(*) AS row_count FROM elite.competetion UNION ALL SELECT 'elite.course' AS table_name, COUNT(*) AS row_count FROM elite.course UNION ALL SELECT 'elite.exhibition' AS table_name, COUNT(*) AS row_count FROM elite.exhibition UNION ALL SELECT 'elite.news' AS table_name, COUNT(*) AS row_count FROM elite.news UNION ALL SELECT 'elite.ongoing_project' AS table_name, COUNT(*) AS row_count FROM elite.ongoing_project UNION ALL SELECT 'elite.research_assistantjob' AS table_name, COUNT(*) AS row_count FROM elite.research_assistantjob UNION ALL SELECT 'elite.roles' AS table_name, COUNT(*) AS row_count FROM elite.roles UNION ALL SELECT 'elite.sponsors' AS table_name, COUNT(*) AS row_count FROM elite.sponsors UNION ALL SELECT 'elite.team_member' AS table_name, COUNT(*) AS row_count FROM elite.team_member UNION ALL SELECT 'elite.training' AS table_name, COUNT(*) AS row_count FROM elite.training UNION ALL SELECT 'elite.workshop' AS table_name, COUNT(*) AS row_count FROM elite.workshop UNION ALL SELECT 'elite.inovation_project' AS table_name, COUNT(*) AS row_count FROM elite.inovation_project UNION ALL SELECT 'elite.contactus' AS table_name, COUNT(*) AS row_count FROM elite.contactus;";
         connection.query(query, (err, results) => {
           if (err) reject(new Error(err.message));
           resolve(results);
@@ -549,7 +549,7 @@ class DBService {
       const time = this.getCurrentTime();
       const response = await new Promise((resolve, reject) => {
         const query =
-          "UPDATE elite.workshop SET title = ?, image = ?,trainer = ?, description = ?, mode = ?, date = ?, objective = ?, venue = ?, fee = ?, link = ?,poster1 = ?, poster2 = ?, poster3 = ?,youtube=?, updated_at = ? WHERE id = ?";
+          "UPDATE elite.workshop SET title = ?, image = ?,trainer = ?, description = ?, mode = ?, date = ?, objective = ?, venue = ?, fee = ?, link = ?, poster1 = ?, poster2 = ?, poster3 = ?, youtube=?, updated_at = ? WHERE id = ?";
         const values = [
           data.title,
           data.image,
@@ -564,7 +564,6 @@ class DBService {
           data.poster1,
           data.poster2,
           data.poster3,
-          data.youtube,
           data.youtube,
           time,
           data.id, // Assuming you have the ID of the record you want to update

@@ -25,10 +25,10 @@ const postTrainingController = (db) => async (req, res) => {
       date:req.body.date,
       trainer:req.body.trainer,
       link: req.body.link,
-      poster1: req.files['poster1'][0].path,
-      poster2: req.files['poster2'][0].path,
-      poster3: req.files['poster3'][0].path,
-      youtube: req.body.youtube,
+      poster1: req.files['poster1'] ? req.files['poster1'][0].path : null,
+      poster2: req.files['poster2'] ? req.files['poster2'][0].path : null,
+      poster3: req.files['poster3'] ? req.files['poster3'][0].path : null,
+      youtube: req.body.youtube || null,
     };
     const result = await db.insertTraining(data);
     res.status(200).json(result);
@@ -39,6 +39,7 @@ const postTrainingController = (db) => async (req, res) => {
 
 const updateTrainingController = (db) => async (req, res) => {
   try {
+    console.log(req)
     const data = {
       title: req.body.title,
       image:  req.body.image || req?.files['image'][0]?.path ,
@@ -50,15 +51,16 @@ const updateTrainingController = (db) => async (req, res) => {
       venue: req.body.venue,
       fee: req.body.fee,
       link: req.body.link,
-      poster1:  req.body.poster1 || req?.files['poster1'][0]?.path ,
-      poster2:  req.body.poster2 || req?.files['poster2'][0]?.path ,
-      poster3:  req.body.poster3 || req?.files['poster3'][0]?.path ,
-      youtube: req.body.youtube,
+      poster1: req.body.poster1 || (req?.files['poster1'] && req.files['poster1'][0]?.path) || null,
+  poster2: req.body.poster2 || (req?.files['poster2'] && req.files['poster2'][0]?.path) || null,
+  poster3: req.body.poster3 || (req?.files['poster3'] && req.files['poster3'][0]?.path) || null,
+  youtube: req.body.youtube || null,
       id: req.params.id,
     };
     const result = await db.updateTraining(data);
     res.status(200).json(result);
   } catch (err) {
+    console.log(err)
     res.status(500).json({ error: "Internal Server Error", status_code: 500 });
   }
 };
